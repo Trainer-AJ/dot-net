@@ -1,0 +1,31 @@
+@page
+@model tax1.Pages.TaxCalculatorModel // this line connects it to coorosponding cshtml.cs file
+@{
+    ViewData["Title"] = "Tax Calculator";
+}
+
+<h2>Tax Calculator</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="income">Enter your Income:</label>
+        <input type="number" class="form-control" id="income" name="income" required />
+    </div>
+
+    <div class="form-group">
+        <label for="taxRegime">Choose your Tax Regime:</label>
+        <select class="form-control" id="taxRegime" name="taxRegime" required>
+            <option value="Old">Old Regime</option>
+            <option value="New">New Regime</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Calculate Tax</button>
+</form>
+
+@if (Model.TaxAmount.HasValue)
+{
+    <div class="alert alert-info mt-3">
+        <strong>Your Tax Liability is: ₹@Model.TaxAmount</strong>
+    </div>
+}

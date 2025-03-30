@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - tax1</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/tax1.styles.css" asp-append-version="true" />
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* Ensure the body takes up full height of the viewport */
+        body {
+            margin: 0;
+            min-height: 100vh; /* Ensures the footer stays at the bottom */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Center the container and content inside */
+        .container {
+            width: 100%;
+            max-width: 1200px; /* Max width to prevent content from stretching too wide */
+            padding: 0 15px;
+            margin: 0 auto; /* Center the container horizontally */
+        }
+
+        /* Footer positioning to stay at the bottom */
+        footer {
+            margin-top: auto; /* This pushes the footer to the bottom of the page */
+        }
+
+        /* Additional styling for navbar to ensure it's centered */
+        .navbar {
+            width: 100%;
+            justify-content: center; /* Center the navbar items */
+        }
+
+        .navbar-nav {
+            display: flex;
+            justify-content: center; /* Center the navbar links */
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 15px; /* Space between navbar items */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">tax1</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Link to GitHub with icon -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="https://github.com/yourusername" target="_blank">
+                                <i class="fab fa-github"></i> My Github
+                            </a>
+                        </li>
+                        <!-- Link to WhatsApp with icon -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="https://wa.me/yourphonenumber" target="_blank">
+                                <i class="fab fa-whatsapp"></i> My WhatsApp
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - tax1 - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
