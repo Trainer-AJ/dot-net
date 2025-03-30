@@ -1,0 +1,43 @@
+@page
+@model tax1.Pages.ResultsModel
+@{
+    ViewData["Title"] = "Tax Results";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Previous Tax Calculations</h2>
+    <a asp-page="/Index" class="btn btn-primary">Go Back</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Income</th>
+            <th>Tax Amount</th>
+            <th>Date Calculated</th>
+            <th>Tax Regime</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TaxRecords != null && Model.TaxRecords.Any())
+        {
+            foreach (var record in Model.TaxRecords)
+            {
+                <tr>
+                    <td>@record.Id</td>
+                    <td>@record.UserInput</td>
+                    <td>@record.TaxAmount</td>
+                    <td>@record.DateCalculated.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td>@record.TaxRegime</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No tax records found.</td>
+            </tr>
+        }
+    </tbody>
+</table>

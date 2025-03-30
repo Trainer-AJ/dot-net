@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient; // Use Microsoft.Data.SqlClient
-using Microsoft.Extensions.Configuration;
+
 
 namespace tax1.Pages
 {
@@ -9,11 +9,14 @@ namespace tax1.Pages
     {
         [BindProperty]
         public double Income { get; set; }
-        
+
         [BindProperty]
         public string TaxRegime { get; set; }
-        
+
         public double? TaxAmount { get; set; }
+
+        // Property to store tax calculation records from the database
+        public List<TaxRecord> TaxRecords { get; set; } = new List<TaxRecord>();
 
         private readonly IConfiguration _configuration;
 
@@ -118,6 +121,57 @@ namespace tax1.Pages
                     throw new Exception("An error occurred while saving tax data to the database.", ex);
                 }
             }
+        }
+
+        // New method to fetch and display all tax records from the database
+        public void OnGetResults()
+        {
+            // Retrieve the connection string from appsettings.json
+            string connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    // SQL query to fetch all tax records
+                    string query = "SELECT Id, UserInput, TaxAmount, DateCalculated, TaxRegime FROM Taxes ORDER BY DateCalculated DESC";
+                    
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var taxRecord = new TaxRecord
+                            {
+                                Id = reader.GetInt32(0),
+                                UserInput = reader.GetDouble(1),
+                                TaxAmount = reader.GetDouble(2),
+                                DateCalculated = reader.GetDateTime(3),
+                                TaxRegime = reader.GetString(4)
+                            };
+
+                            TaxRecords.Add(taxRecord);
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    // Log or handle the exception as needed
+                    throw new Exception("An error occurred while fetching tax data from the database.", ex);
+                }
+            }
+        }
+
+        // A model class to represent the tax record from the database
+        public class TaxRecord
+        {
+            public int Id { get; set; }
+            public double UserInput { get; set; }
+            public double TaxAmount { get; set; }
+            public DateTime DateCalculated { get; set; }
+            public string TaxRegime { get; set; }
         }
     }
 }

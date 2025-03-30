@@ -1,5 +1,5 @@
 @page
-@model tax1.Pages.TaxCalculatorModel // this line connects it to coorosponding cshtml.cs file
+@model tax1.Pages.TaxCalculatorModel
 @{
     ViewData["Title"] = "Tax Calculator";
 }
@@ -21,6 +21,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Calculate Tax</button>
+    <a href="/results" class="btn btn-secondary">View Results</a>
 </form>
 
 @if (Model.TaxAmount.HasValue)
@@ -28,4 +29,61 @@
     <div class="alert alert-info mt-3">
         <strong>Your Tax Liability is: ₹@Model.TaxAmount</strong>
     </div>
+}
+
+@* Displaying the tax records if available *@       
+@if (Model.TaxRecords != null && Model.TaxRecords.Count > 0)
+{
+    <h3 class="mt-4">Previous Tax Calculations</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Income</th>
+                <th>Tax Amount</th>
+                <th>Date Calculated</th>
+                <th>Tax Regime</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model.TaxRecords)
+            {
+                <tr>
+                    <td>@record.Id</td>
+                    <td>@record.UserInput</td>
+                    <td>@record.TaxAmount</td>
+                    <td>@record.DateCalculated.ToString("yyyy-MM-dd")</td>
+                    <td>@record.TaxRegime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@* Displaying the tax records if available *@       
+@if (Model.TaxRecords != null && Model.TaxRecords.Count > 0)
+{
+    <h3 class="mt-4">Previous Tax Calculations</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Income</th>
+                <th>Tax Amount</th>
+                <th>Date Calculated</th>
+                <th>Tax Regime</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model.TaxRecords)
+            {
+                <tr>
+                    <td>@record.Id</td>
+                    <td>@record.UserInput</td>
+                    <td>@record.TaxAmount</td>
+                    <td>@record.DateCalculated.ToString("yyyy-MM-dd")</td>
+                    <td>@record.TaxRegime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
