@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient; // Use Microsoft.Data.SqlClient
 using Microsoft.Extensions.Configuration;
 
 namespace tax1.Pages
