@@ -22,4 +22,5 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az account show
+            az group create -n githubDemo -l eastus
+            az network vnet create -n Demo -g githubDemo -l eastus --address-prefix 192.168.0.0/16 --subnet-name demo --subnet-prefix 192.168.99.0/24
